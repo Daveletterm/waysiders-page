@@ -1,0 +1,419 @@
+<!--
+  Assignment: Week 6 Lab
+  Author: David Letterman
+  Date: 4/24/2022
+  Purpose: The purpose of this app will be to allow users 
+  to track their screen time.
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Change Me</title>
+
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+	
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  </head>
+  <body onload="initializeKeypadButtons()">
+    <!-- TODO: Login Page -->
+    <div data-role="page" id="page-login">
+      <div data-role="header">
+        <h1>Screen Time Tracker User Login</h1>
+      </div>
+
+      <div data-role="main" class="ui-content">
+        <label for="data-password">Password:</label>
+        <input type="password" id="data-password" />
+
+        <div data-role="controlgroup">
+          <a href="" data-role="button" id="btn-enter-password"> Enter</a>
+          <a href="#page-about" data-role="button">About</a>
+        </div>
+
+        <div id="keypad">
+          <div data-role="controlgroup" data-type="horizontal">
+            <a data-role="button">7</a>
+            <a data-role="button">8</a>
+            <a data-role="button">9</a>
+          </div>
+
+          <div data-role="controlgroup" data-type="horizontal">
+            <a data-role="button">4</a>
+            <a data-role="button">5</a>
+            <a data-role="button">6</a>
+          </div>
+
+          <div data-role="controlgroup" data-type="horizontal">
+            <a data-role="button">1</a>
+            <a data-role="button">2</a>
+            <a data-role="button">3</a>
+          </div>
+
+          <div data-role="controlgroup" data-type="horizontal">
+            <a data-role="button">0</a>
+            <a
+              data-role="button"
+              data-icon="delete"
+              >del</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>    
+    
+    <!-- TODO: About Page -->
+    <div data-role="page" id="page-about">
+      <div data-role="header">
+        <a href="../" data-role="button" data-icon="bars" data-iconpos="left"
+          >Home</a
+        >
+        <h1>Info</h1>
+        <a
+          href="../"
+          data-rel="back"
+          data-role="button"
+          data-icon="back"
+          data-iconpos="left"
+          >Back</a
+        >
+      </div>
+
+      <div data-role="main" class="ui-content">
+        <p>Use this app to track your screen time</p>
+      </div>
+    </div>
+
+    
+    <!-- TODO: Disclaimer Page -->
+    <div data-role="page" id="page-disclaimer" data-close-btn="none">
+      <div data-role="header">
+        <h1>Disclaimer</h1>
+      </div>
+
+      <div data-role="main" class="ui-content">
+        <p>Past performance is not a guarantee of future results.</p>
+
+        <a
+          href="#page-user-info"
+          id="btn-notice-yes"
+          data-role="button"
+          data-icon="forward"
+          data-mini="false"
+          >Yes</a
+        >
+      </div>
+    </div>
+
+    
+    <!-- TODO: User Information/Profile Page -->
+    <div data-role="page" id="page-user-info">
+      <div data-role="header">
+        <a
+          href="#page-menu"
+          data-role="button"
+          data-icon="bars"
+          data-iconpos="left"
+          data-inline="true"
+          >Menu</a
+        >
+        <a
+          href="#page-about"
+          data-role="button"
+          data-icon="info"
+          data-iconpos="right"
+          data-inline="true"
+          >Info</a
+        >
+        <h1>User Information</h1>
+      </div>
+
+      <div data-role="main" class="ui-content">
+        <form id="form-user-info">
+          <div data-role="fieldcontain">
+            <label for="data-first-name">First Name: </label>
+            <input
+              type="text"
+              placeholder="First Name"
+              data-mini="false"
+              id="data-first-name"
+              value=""
+              required
+            />
+          </div>
+
+          <div data-role="fieldcontain">
+            <label for="data-last-name">Last Name: </label>
+            <input
+              type="text"
+              placeholder="Last Name"
+              data-mini="false"
+              id="data-last-name"
+              value=""
+              required
+            />
+          </div>
+
+          <div data-role="fieldcontain">
+            <label for="data-new-password">Edit Password: </label>
+            <input
+              type="password"
+              placeholder="New Password"
+              data-mini="false"
+              id="data-new-password"
+              value=""
+              required
+            />
+          </div>
+
+          <input
+            type="submit"
+            id="btn-user-update"
+            data-icon="check"
+            data-iconpos="left"
+            value="Update"
+            data-inline="true"
+          />
+        </form>
+      </div>
+    </div>
+
+
+    <!-- TODO: Menu Page -->
+    <div data-role="page" id="page-menu">
+      <div data-role="header">
+        <a
+          href="#"
+          data-role="button"
+          data-icon="bars"
+          data-iconpos="left"
+          data-inline="true"
+          >Menu</a
+        >
+        <a
+          href="#page-about"
+          data-role="button"
+          data-icon="info"
+          data-iconpos="right"
+          data-inline="true"
+          >Info</a
+        >
+        <h1>Screen Time Tracker</h1>
+      </div>
+
+      <div data-role="main" class="ui-content">
+        <div data-role="controlgroup">
+          <a href="#page-user-info" data-role="button">User Info</a>
+          <a href="#page-records" data-role="button">Records</a>
+          <a href="#page-graph" data-role="button">Graph</a>
+          <a href="#page-advice" data-role="button">Suggestions</a>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- TODO: Records Page -->
+    <div data-role="page" id="page-records">
+      <div data-role="header">
+        <a
+          href="#page-menu"
+          data-role="button"
+          data-icon="bars"
+          data-iconpos="left"
+          data-inline="true"
+          >Menu</a
+        >
+        <a
+          href="#page-about"
+          data-role="button"
+          data-icon="info"
+          data-iconpos="right"
+          data-inline="true"
+          >Info</a
+        >
+        <h1>Records</h1>
+      </div>
+
+      <div data-role="main" class="ui-content">
+        <!--User's Information Section-->
+        <div data-role="fieldcontain" id="div-user-section"></div>
+
+        <h2>History</h2>
+
+        <div data-role="fieldcontain">
+          <!--Records Table-->
+          <table
+            id="tbl-records"
+            class="ui-responsive table-stripe"
+            data-mode="reflow"
+          ></table>
+        </div>
+
+        <div data-role="fieldcontain">
+          <a
+            href="#page-record-form"
+            id="btn-add-record"
+            data-role="button"
+            data-icon="plus"
+            >Add New Entry</a
+          >
+          <a
+            href="#"
+            data-role="button"
+            id="btn-clear-history"
+            data-icon="delete"
+            >Clear History</a
+          >
+        </div>
+      </div>
+    </div>
+
+
+    <!-- TODO: Record Form Page -->
+    <div data-role="page" id="page-record-form">
+      <div data-role="header">
+        <a
+          href="#page-menu"
+          data-role="button"
+          data-icon="bars"
+          data-iconpos="left"
+          data-inline="true"
+          >Menu</a
+        >
+        <a
+          href="#page-about"
+          data-role="button"
+          data-icon="info"
+          data-iconpos="right"
+          data-inline="true"
+          >Info</a
+        >
+        <h1>Record Form</h1>
+      </div>
+
+      <div data-role="main" class="ui-content">
+        <form id="form-record">
+          <div data-role="fieldcontain">
+            <div data-role="fieldcontain">
+              <label for="data-date">Date: </label>
+              <input
+                type="date"
+                data-mini="false"
+                id="data-date"
+                value=""
+              />
+            </div>
+
+            <div data-role="fieldcontain">
+              <label for="data-screen-time">
+                Minutes of Screen Time:
+              </label>
+              <input
+                type="number"
+                step="1"
+                placeholder="0"
+                data-mini="false"
+                id="data-screen-time"
+                value=""
+              />
+            </div>
+          </div>
+
+          <input type="submit" id="btn-submit-record" value="" />
+        </form>
+      </div>
+    </div>
+
+
+    <!-- TODO: Graph Page -->
+    <div data-role="page" id="page-graph">
+      <div data-role="header">
+        <a
+          href="#page-menu"
+          data-role="button"
+          data-icon="bars"
+          data-iconpos="left"
+          data-inline="true"
+          >Menu</a
+        >
+        <a
+          href="#page-about"
+          data-role="button"
+          data-icon="info"
+          data-iconpos="right"
+          data-inline="true"
+          >Info</a
+        >
+        <h1>Tracker</h1>
+      </div>
+      <div data-role="main" class="ui-content">
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            <h2 class="panel-title">Screen Time vs Date</h2>
+          </div>
+
+          <div class="panel-body">
+            <canvas id="canvas-graph" width="500" height="500"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- TODO: Advice Page -->
+    <div data-role="page" id="page-advice">
+      <div data-role="header">
+        <a
+          href="#page-menu"
+          data-role="button"
+          data-icon="bars"
+          data-iconpos="left"
+          data-inline="true"
+          >Menu</a
+        >
+        <a
+          href="#page-about"
+          data-role="button"
+          data-icon="info"
+          data-iconpos="right"
+          data-inline="true"
+          >Info</a
+        >
+        <h1>Suggestions</h1>
+      </div>
+
+      <div data-role="main" class="ui-content">
+        <canvas id="canvas-advice" width="550" height="550"></canvas>
+      </div>
+    </div>
+
+    <!-- RGraph JavaScript files -->
+    <script src="scripts/RGraph/RGraph.common.core.js"></script>
+    <script src="scripts/RGraph/RGraph.common.effects.js"></script>
+    <script src="scripts/RGraph/RGraph.cornergauge.js"></script>
+    <script src="scripts/RGraph/RGraph.hprogress.js"></script>
+    <script src="scripts/RGraph/RGraph.line.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="scripts/login.js"></script>
+    <script src="scripts/page-loader.js"></script>
+    <script src="scripts/records.js"></script>
+    <script src="scripts/user-form.js"></script>
+    <script src="scripts/graph.js"></script>
+    <script src="scripts/advice.js"></script>
+  </body>
+</html>
